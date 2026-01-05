@@ -59,8 +59,8 @@ src/
 1. **Clone the repository** (or navigate to your frontend folder)
 
 ```bash
-git clone <your-repo-url>
-cd trading-vue
+git clone https://github.com/BipinJoshi2052/virgosoft-trading-frontend
+cd virgosoft-trading-frontend
 
 2. **Install dependencies**
 
