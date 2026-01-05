@@ -75,8 +75,11 @@
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import { useAuthStore } from '../stores/auth';
+import { useUserStore } from '../stores/user'
+import { usePusherListener } from '../composables/usePusherListener'
 
 const authStore = useAuthStore();
+const store = useUserStore()
 
 const profile = ref({ user: {}, assets: [] });
 const loading = ref(true);
@@ -86,6 +89,7 @@ const fetchProfile = async () => {
   try {
     const response = await axios.get('/api/profile');
     profile.value = response.data; // { user: {...}, assets: [...] }
+    store.updateBalanceAndAssets(response.data.user.balance, response.data.assets)
   } catch (err) {
     console.error('Failed to fetch wallet data:', err);
 
@@ -100,7 +104,13 @@ const fetchProfile = async () => {
   }
 };
 
-onMounted(() => {
-  fetchProfile();
+onMounted(async () => {
+    const userResponse = await axios.get('/api/user')
+    store.setUserId(userResponse.data.id)
+    console.log(userResponse.data.id)
+
+    await fetchProfile();
+
+    usePusherListener();
 });
 </script>
