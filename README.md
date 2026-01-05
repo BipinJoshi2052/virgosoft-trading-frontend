@@ -61,6 +61,7 @@ src/
 ```bash
 git clone https://github.com/BipinJoshi2052/virgosoft-trading-frontend
 cd virgosoft-trading-frontend
+```
 
 2. **Install dependencies**
 
